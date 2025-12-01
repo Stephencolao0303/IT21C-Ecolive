@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoLive Monitor - Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+  <header>
+    <h1>EcoLive Monitor</h1>
+    <div class="header-right">
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Left column: weather + manage sensors -->
+    <section class="left-col">
+      <div class="card">
+        <h3>Search City & Weather</h3>
+        <div class="row">
+          <input id="cityInput" type="text" placeholder="Enter city (e.g., Manila)" />
+          <button id="fetchWeather">Get Weather</button>
+        </div>
+        <div id="weatherResult" class="weather-result"></div>
+      </div>
+
+      <div class="card">
+        <h3>Manage Sensors (Add / Update)</h3>
+        <form id="dataForm">
+          <input id="sensorName" type="text" placeholder="Sensor Name (e.g., Air Quality Sensor)" required />
+          <input id="sensorDesc" type="text" placeholder="Description (optional)" />
+          <input id="sensorCity" type="text" placeholder="City (e.g., Manila)" required />
+          <div class="row">
+            <input id="sensorValue" type="number" step="any" placeholder="Value (leave blank for auto)" />
+            <label class="inline">
+              <input id="autoValue" type="checkbox" /> Auto-generate value
+            </label>
+          </div>
+          <button type="submit">Add / Update Sensor</button>
+        </form>
+
+        <h4>All Saved Sensors</h4>
+        <ul id="dataList"></ul>
+      </div>
+    </section>
+
+    <!-- Right column: chart + map -->
+    <section class="right-col">
+      <div class="card">
+        <h3>City Sensor Chart</h3>
+        <div style="height:300px;">
+          <canvas id="envChart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Map</h3>
+        <div id="map" style="height:360px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

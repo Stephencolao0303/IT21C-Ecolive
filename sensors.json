@@ -1,0 +1,68 @@
+[
+  {
+    "id": "SEN-001",
+    "name": "Air Quality Sensor 1",
+    "city": "Manila",
+    "lat": 14.5995,
+    "lon": 120.9842,
+    "type": "Air Quality",
+    "value": 75,
+    "status": "Active",
+    "description": "Monitors PM2.5 air particles in Manila."
+  },
+  {
+    "id": "SEN-002",
+    "name": "Temperature Sensor A",
+    "city": "Cebu City",
+    "lat": 10.3157,
+    "lon": 123.8854,
+    "type": "Temperature",
+    "value": 31,
+    "status": "Active",
+    "description": "Measures city-wide ambient temperature."
+  },
+  {
+    "id": "SEN-003",
+    "name": "Humidity Sensor A",
+    "city": "Davao City",
+    "lat": 7.1907,
+    "lon": 125.4553,
+    "type": "Humidity",
+    "value": 62,
+    "status": "Active",
+    "description": "Tracks humidity for agricultural monitoring."
+  },
+  {
+    "id": "SEN-004",
+    "name": "Air Quality Sensor 2",
+    "city": "Baguio City",
+    "lat": 16.4023,
+    "lon": 120.5960,
+    "type": "Air Quality",
+    "value": 42,
+    "status": "Offline",
+    "description": "Mountain-region environmental sensor."
+  },
+  {
+    "id": "SEN-005",
+    "name": "Temperature Sensor B",
+    "city": "Malaybalay City",
+    "lat": 8.1570,
+    "lon": 125.1276,
+    "type": "Temperature",
+    "value": 26,
+    "status": "Active",
+    "description": "Monitors cool highland temperature."
+  },
+  {
+    "id": "SEN-006",
+    "name": "Humidity Sensor B",
+    "city": "Valencia City",
+    "lat": 7.9064,
+    "lon": 125.0884,
+    "type": "Humidity",
+    "value": 73,
+    "status": "Active",
+    "description": "Used for crop humidity analysis."
+  }
+]

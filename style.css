@@ -1,0 +1,82 @@
+/* Basic clean styling, responsive layout */
+:root {
+  --accent: #2e8b57;
+  --muted: #f4f4f4;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Inter, system-ui, Arial, sans-serif; background:var(--muted);
+  color:#222;
+}
+header{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 20px; background:var(--accent); color:#fff;
+}
+header h1{margin:0; font-size:20px}
+.header-right{display:flex; gap:10px; align-items:center}
+
+.container{
+  display:flex; gap:20px; padding:20px;
+  flex-wrap:wrap;
+}
+.left-col{flex:1 1 360px; min-width:300px; max-width:520px}
+.right-col{flex:2 1 600px; min-width:320px}
+
+.card{
+  background:#fff; padding:14px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.06);
+  margin-bottom:16px;
+}
+
+.card h3{margin-top:0}
+.row{display:flex; gap:8px; align-items:center}
+input[type="text"], input[type="number"]{
+  padding:8px; border-radius:6px; border:1px solid #ddd; flex:1;
+}
+button{background:var(--accent); color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer}
+button:hover{opacity:0.95}
+
+/* Login */
+.login-container{
+  max-width:420px; margin:80px auto; padding:24px; background:white; border-radius:10px; text-align:center; display:flex; justify-content: center; align-item: center;
+  box-shadow:0 6px 30px rgba(0,0,0,0.08);
+}
+.login-container input{width:80%; margin:8px 0; padding:10px}
+
+/* Manage list */
+#dataList{list-style:none; padding:0; margin:8px 0}
+#dataList li{display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px; border-radius:6px; background:#f8f8f8; margin-bottom:6px}
+.inline{display:flex; align-items:center; gap:6px}
+
+/* Small screen */
+@media (max-width:860px){
+  .container{flex-direction:column}
+  .right-col, .left-col {max-width:100%}
+}
+/* Login page background */
+body.login-page {
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+
+  background: url("images.jpg") no-repeat center center/cover;
+}
+body.login-page {
+  position: relative;
+}
+
+body.login-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(27, 133, 27, 0.4); /* darker overlay */
+  background-size: cover;
+}
+
+.login-container {
+  position: relative;
+  z-index: 1;
+}
