@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoLive Monitor - About Us</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page">
+  <header>
+    <div class="logo-area">
+      <i class="fa-solid fa-leaf"></i>
+      <h1>EcoLive Monitor</h1>
+    </div>
+    
+    <nav class="main-nav">
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a href="about.html" class="nav-link active"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="faq.html" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+    </nav>
+
+    <div class="header-right">
+      <button id="themeToggle" class="theme-btn" title="Toggle Dark Mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="user-profile">
+        <i class="fa-solid fa-circle-user"></i>
+        <span>Admin</span>
+      </div>
+      <button id="logoutBtn" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="card" style="width: 100%; max-width: 800px; margin: 0 auto;">
+      <div class="card-header">
+        <h3><i class="fa-solid fa-seedling"></i> About EcoLive Monitor</h3>
+      </div>
+      <div class="card-body">
+        <p>Welcome to <strong>EcoLive Monitor</strong>, your comprehensive solution for real-time environmental monitoring.</p>
+        
+        <h4 style="margin-top: 20px; color: var(--accent);">Our Mission</h4>
+        <p>Our mission is to empower individuals and communities with accurate, real-time data about their environment. By monitoring air quality, temperature, and other vital metrics, we help you make informed decisions for a healthier life.</p>
+        
+        <h4 style="margin-top: 20px; color: var(--accent);">Key Features</h4>
+        <ul style="line-height: 1.8;">
+          <li><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 8px;"></i> Real-time sensor data visualization</li>
+          <li><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 8px;"></i> Interactive maps for location-based monitoring</li>
+          <li><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 8px;"></i> Weather integration for comprehensive insights</li>
+          <li><i class="fa-solid fa-check" style="color: var(--accent); margin-right: 8px;"></i> User-friendly dashboard with dark mode support</li>
+        </ul>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-muted);">
+          <p>&copy; 2025 EcoLive Monitor. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

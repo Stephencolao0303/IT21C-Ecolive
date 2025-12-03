@@ -2,7 +2,7 @@
 // OOP: Sensor classes (Encapsulation + Inheritance)
 class Sensor {
   #name; #value; // private properties
-  constructor(name, value, desc = "", city = "", lat = null, lon = null){
+  constructor(name, value, desc = "", city = "", lat = null, lon = null) {
     this.#name = name;
     this.#value = value;
     this.description = desc;
@@ -10,10 +10,10 @@ class Sensor {
     this.lat = lat;
     this.lon = lon;
   }
-  getName(){ return this.#name; }
-  getValue(){ return this.#value; }
-  setValue(v){ this.#value = v; }
-  toJSON(){ // custom serialize for storage
+  getName() { return this.#name; }
+  getValue() { return this.#value; }
+  setValue(v) { this.#value = v; }
+  toJSON() { // custom serialize for storage
     return {
       name: this.getName(),
       value: this.getValue(),
@@ -23,17 +23,17 @@ class Sensor {
       lon: this.lon
     };
   }
-  display(){ return `${this.getName()}: ${this.getValue()}`; }
+  display() { return `${this.getName()}: ${this.getValue()}`; }
 }
 
 // TemperatureSensor inherits Sensor — demonstrates Inheritance
 class TemperatureSensor extends Sensor {
-  constructor(name, value, desc="", city="", lat=null, lon=null, unit="°C"){
+  constructor(name, value, desc = "", city = "", lat = null, lon = null, unit = "°C") {
     super(name, value, desc, city, lat, lon);
     this.unit = unit;
   }
-  display(){ return `${this.getName()}: ${this.getValue()} ${this.unit}`; }
-  toJSON(){ 
+  display() { return `${this.getName()}: ${this.getValue()} ${this.unit}`; }
+  toJSON() {
     const base = super.toJSON();
     base.unit = this.unit;
     base.type = "temperature";
@@ -45,15 +45,15 @@ class TemperatureSensor extends Sensor {
 // Storage helpers (localStorage)
 const STORAGE_KEY = "eco_sensors_v1";
 
-function readRawSensors(){
+function readRawSensors() {
   return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 }
 
 // Reconstruct objects: convert stored plain objects back to Sensor/TemperatureSensor instances
-function getAllSensors(){
+function getAllSensors() {
   const raw = readRawSensors();
   return raw.map(obj => {
-    if(obj.type === "temperature" || (obj.name && obj.name.toLowerCase().includes("temp"))){
+    if (obj.type === "temperature" || (obj.name && obj.name.toLowerCase().includes("temp"))) {
       return new TemperatureSensor(obj.name, obj.value, obj.description || "", obj.city || "", obj.lat || null, obj.lon || null, obj.unit || "°C");
     } else {
       return new Sensor(obj.name, obj.value, obj.description || "", obj.city || "", obj.lat || null, obj.lon || null);
@@ -61,7 +61,7 @@ function getAllSensors(){
   });
 }
 
-function saveAllSensors(instances){
+function saveAllSensors(instances) {
   const plain = instances.map(s => s.toJSON());
   localStorage.setItem(STORAGE_KEY, JSON.stringify(plain));
 }
@@ -75,12 +75,12 @@ const autoCheckbox = document.getElementById("autoValue");
 const cityInputField = document.getElementById("cityInput");
 
 // Utility: generate a demo random value
-function randomValueForDemo(){
+function randomValueForDemo() {
   return +(Math.random() * 100).toFixed(1); // 0.0 - 100.0
 }
 
 // Render Manage Sensors (all sensors)
-function renderManageList(){
+function renderManageList() {
   const sensors = getAllSensors();
   dataList.innerHTML = "";
   sensors.forEach((s, idx) => {
@@ -99,7 +99,7 @@ function renderManageList(){
     // edit button -> populate form
     const editBtn = document.createElement("button");
     editBtn.textContent = "Edit";
-    editBtn.addEventListener("click", ()=>{
+    editBtn.addEventListener("click", () => {
       document.getElementById("sensorName").value = s.getName();
       document.getElementById("sensorDesc").value = s.description || "";
       document.getElementById("sensorCity").value = s.city || "";
@@ -111,12 +111,12 @@ function renderManageList(){
     // delete button
     const delBtn = document.createElement("button");
     delBtn.textContent = "Delete";
-    delBtn.addEventListener("click", ()=>{
+    delBtn.addEventListener("click", () => {
       sensors.splice(idx, 1);
       saveAllSensors(sensors);
       renderManageList();
       // if current city view matches, refresh city rendering
-      if(currentCity) renderCityView(currentCity);
+      if (currentCity) renderCityView(currentCity);
     });
     right.appendChild(delBtn);
 
@@ -135,22 +135,22 @@ dataForm.addEventListener("submit", async (e) => {
   const manualValueRaw = document.getElementById("sensorValue").value;
   const auto = document.getElementById("autoValue").checked;
 
-  if(!name || !city){
+  if (!name || !city) {
     alert("Sensor Name and City are required.");
     return;
   }
 
   let value;
-  if(auto){
+  if (auto) {
     // Option A: auto-generate a demo value
     value = randomValueForDemo();
-  } else if(manualValueRaw !== ""){
+  } else if (manualValueRaw !== "") {
     // Option B: user provided manual value
     value = parseFloat(manualValueRaw);
-    if(Number.isNaN(value)){ alert("Invalid manual value"); return; }
+    if (Number.isNaN(value)) { alert("Invalid manual value"); return; }
   } else {
     // neither manual nor auto -> ask user to either provide a value or tick auto
-    if(!confirm("No value entered. Do you want to auto-generate a demo value?")){
+    if (!confirm("No value entered. Do you want to auto-generate a demo value?")) {
       return;
     }
     value = randomValueForDemo();
@@ -166,7 +166,7 @@ dataForm.addEventListener("submit", async (e) => {
   const lat = coords ? coords.lat : null;
   const lon = coords ? coords.lon : null;
 
-  if(index >= 0){
+  if (index >= 0) {
     // update existing
     allSensors[index].setValue(value);
     allSensors[index].description = desc;
@@ -184,7 +184,7 @@ dataForm.addEventListener("submit", async (e) => {
   renderManageList();
 
   // If the currently viewed city matches this sensor's city, refresh the city view
-  if(currentCity && currentCity.toLowerCase() === city.toLowerCase()){
+  if (currentCity && currentCity.toLowerCase() === city.toLowerCase()) {
     renderCityView(currentCity);
   }
 
@@ -203,7 +203,7 @@ const envChart = new Chart(ctx, {
   options: { responsive: true, maintainAspectRatio: false }
 });
 
-function updateChartForSensors(sensorArray){
+function updateChartForSensors(sensorArray) {
   envChart.data.labels = sensorArray.map(s => s.getName());
   envChart.data.datasets[0].data = sensorArray.map(s => s.getValue());
   envChart.data.datasets[0].backgroundColor = sensorArray.map(() => '#2e8b57');
@@ -219,17 +219,17 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let cityMarkersLayer = L.layerGroup().addTo(map);
 
 // Show only sensors for selected city on the map
-function updateMapForSensors(sensorArray, focusLat=null, focusLon=null){
+function updateMapForSensors(sensorArray, focusLat = null, focusLon = null) {
   cityMarkersLayer.clearLayers();
-  if(!sensorArray || sensorArray.length === 0){
-    if(focusLat && focusLon) map.setView([focusLat, focusLon], 8);
+  if (!sensorArray || sensorArray.length === 0) {
+    if (focusLat && focusLon) map.setView([focusLat, focusLon], 8);
     return;
   }
 
   sensorArray.forEach(s => {
     const lat = s.lat ?? focusLat;
     const lon = s.lon ?? focusLon;
-    if(lat != null && lon != null){
+    if (lat != null && lon != null) {
       const m = L.marker([lat, lon]).addTo(cityMarkersLayer);
       m.bindPopup(`<strong>${s.getName()}</strong><br>${s.description || ""}<br>Value: ${s.getValue()}`);
     }
@@ -237,26 +237,26 @@ function updateMapForSensors(sensorArray, focusLat=null, focusLon=null){
 
   // center map on first sensor or provided focus coords
   const center = (sensorArray[0].lat && sensorArray[0].lon) ? [sensorArray[0].lat, sensorArray[0].lon] : (focusLat && focusLon ? [focusLat, focusLon] : null);
-  if(center) map.setView(center, 10);
+  if (center) map.setView(center, 10);
 }
 
 // =====================
 // Weather integration: search city and render city view
 const OPENWEATHER_KEY = "96bc625a9a03c36253c2ea64cba0f9e3"; // <<< REPLACE THIS
 
-async function fetchWeatherForCity(city){
+async function fetchWeatherForCity(city) {
   try {
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHER_KEY}&units=metric`);
-    if(!res.ok) return null;
+    if (!res.ok) return null;
     const data = await res.json();
     return data;
-  } catch(e) { console.error(e); return null; }
+  } catch (e) { console.error(e); return null; }
 }
 
 // Resolve coords helper (returns {lat,lon} or null)
-async function resolveCityCoords(city){
+async function resolveCityCoords(city) {
   const data = await fetchWeatherForCity(city);
-  if(data && data.coord) return { lat: data.coord.lat, lon: data.coord.lon, raw: data };
+  if (data && data.coord) return { lat: data.coord.lat, lon: data.coord.lon, raw: data };
   return null;
 }
 
@@ -264,8 +264,8 @@ async function resolveCityCoords(city){
 let currentCity = null;
 
 // Render only sensors that belong to a city (city search triggers this)
-async function renderCityView(city){
-  if(!city) return;
+async function renderCityView(city) {
+  if (!city) return;
   currentCity = city;
 
   // Show weather
@@ -273,7 +273,7 @@ async function renderCityView(city){
   weatherBox.innerHTML = "Loading weather...";
 
   const weatherData = await fetchWeatherForCity(city);
-  if(!weatherData || !weatherData.main){
+  if (!weatherData || !weatherData.main) {
     weatherBox.textContent = "City not found / weather unavailable.";
     // Show any sensors that match city name (if stored without coords)
     const allSensors = getAllSensors();
@@ -298,7 +298,7 @@ async function renderCityView(city){
   const coords = { lat: weatherData.coord.lat, lon: weatherData.coord.lon };
 
   const idx = allSensors.findIndex(s => s.getName().toLowerCase() === cityTempName.toLowerCase());
-  if(idx >= 0){
+  if (idx >= 0) {
     allSensors[idx].setValue(cityTempVal);
     allSensors[idx].lat = coords.lat; allSensors[idx].lon = coords.lon;
     allSensors[idx].city = weatherData.name;
@@ -321,7 +321,7 @@ async function renderCityView(city){
 // Hook search button
 document.getElementById("fetchWeather").addEventListener("click", async () => {
   const city = document.getElementById("cityInput").value.trim();
-  if(!city){
+  if (!city) {
     alert("Enter a city to search");
     return;
   }
@@ -330,26 +330,42 @@ document.getElementById("fetchWeather").addEventListener("click", async () => {
 
 // If page loads and there is a previously viewed city stored, optionally restore — not required now
 
-// Small helper: getAllSensors wrapper to maintain naming
-function getAllSensors(){
-  return getAllSensors_orig();
-}
-// to avoid naming conflict we created earlier, rebind properly:
-function getAllSensors_orig(){ return getAllSensors_impl(); }
-function getAllSensors_impl(){ return (function(){ // closure to reuse earlier implementation
-  const raw = readRawSensors();
-  return raw.map(obj => {
-    if(obj.type === "temperature" || (obj.name && obj.name.toLowerCase().includes("temp"))){
-      return new TemperatureSensor(obj.name, obj.value, obj.description || "", obj.city || "", obj.lat || null, obj.lon || null, obj.unit || "°C");
-    } else {
-      return new Sensor(obj.name, obj.value, obj.description || "", obj.city || "", obj.lat || null, obj.lon || null);
-    }
-  });
-})(); }
-
-// IMPORTANT: The above wrapper resolves the earlier function name overlap.
 // Initialize: set empty array if nothing
-if(!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, "[]");
+if (!localStorage.getItem(STORAGE_KEY)) localStorage.setItem(STORAGE_KEY, "[]");
 
 // Final initial render of manage list
 renderManageList();
+
+// =====================
+// Theme Toggle Logic
+const themeToggleBtn = document.getElementById("themeToggle");
+const body = document.body;
+const THEME_KEY = "ecolive_theme";
+
+// Load saved theme
+const savedTheme = localStorage.getItem(THEME_KEY);
+if (savedTheme === "dark") {
+  body.classList.add("dark-mode");
+  if (themeToggleBtn) themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+}
+
+// Toggle theme on click
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", () => {
+    body.classList.toggle("dark-mode");
+    const isDark = body.classList.contains("dark-mode");
+
+    // Update icon
+    themeToggleBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+
+    // Save preference
+    localStorage.setItem(THEME_KEY, isDark ? "dark" : "light");
+
+    // Update Chart.js colors if needed (optional, but good for visibility)
+    if (window.envChart) {
+      const newColor = isDark ? '#4ade80' : '#2e8b57'; // Lighter green for dark mode
+      envChart.data.datasets[0].backgroundColor = envChart.data.datasets[0].data.map(() => newColor);
+      envChart.update();
+    }
+  });
+}

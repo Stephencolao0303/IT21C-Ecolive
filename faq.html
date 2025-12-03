@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoLive Monitor - FAQ</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page">
+  <header>
+    <div class="logo-area">
+      <i class="fa-solid fa-leaf"></i>
+      <h1>EcoLive Monitor</h1>
+    </div>
+    
+    <nav class="main-nav">
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="faq.html" class="nav-link active"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+    </nav>
+
+    <div class="header-right">
+      <button id="themeToggle" class="theme-btn" title="Toggle Dark Mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="user-profile">
+        <i class="fa-solid fa-circle-user"></i>
+        <span>Admin</span>
+      </div>
+      <button id="logoutBtn" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="card" style="width: 100%; max-width: 800px; margin: 0 auto;">
+      <div class="card-header">
+        <h3><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h3>
+      </div>
+      <div class="card-body">
+        <div class="faq-item" style="margin-bottom: 20px;">
+          <h4 style="color: var(--accent); margin-bottom: 8px;">How do I add a new sensor?</h4>
+          <p>Go to the "Manage Sensors" section on the dashboard, enter the sensor details (Name, City, etc.), and click "Add / Update Sensor".</p>
+        </div>
+        
+        <div class="faq-item" style="margin-bottom: 20px;">
+          <h4 style="color: var(--accent); margin-bottom: 8px;">Is the data real-time?</h4>
+          <p>Yes, the dashboard updates in real-time. Weather data is fetched from OpenWeatherMap, and sensor values are updated instantly.</p>
+        </div>
+        
+        <div class="faq-item" style="margin-bottom: 20px;">
+          <h4 style="color: var(--accent); margin-bottom: 8px;">How do I switch to Dark Mode?</h4>
+          <p>Click the moon icon in the top right corner of the header to toggle between Light and Dark modes.</p>
+        </div>
+
+        <div class="faq-item" style="margin-bottom: 20px;">
+          <h4 style="color: var(--accent); margin-bottom: 8px;">Can I monitor multiple cities?</h4>
+          <p>Yes, you can add sensors for different cities. Use the search bar to view weather and filter sensors for a specific city.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

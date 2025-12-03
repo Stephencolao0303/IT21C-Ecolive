@@ -4,6 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EcoLive Monitor - Dashboard</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <link rel="stylesheet" href="style.css" />
 
   <!-- Chart.js -->
@@ -13,58 +22,111 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
-<body>
+<body class="dashboard-page">
   <header>
-    <h1>EcoLive Monitor</h1>
+    <div class="logo-area">
+      <i class="fa-solid fa-leaf"></i>
+      <h1>EcoLive Monitor</h1>
+      
+    </div>
+    
+    <nav class="main-nav">
+      <a href="dashboard.html" class="nav-link active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a href="about.html" class="nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="faq.html" class="nav-link"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+    </nav>
+
     <div class="header-right">
-      <button id="logoutBtn">Logout</button>
+      <button id="themeToggle" class="theme-btn" title="Toggle Dark Mode">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <div class="user-profile">
+        <i class="fa-solid fa-circle-user"></i>
+        <span>Admin</span>
+      </div>
+      <button id="logoutBtn" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
     </div>
   </header>
 
   <main class="container">
     <!-- Left column: weather + manage sensors -->
     <section class="left-col">
-      <div class="card">
-        <h3>Search City & Weather</h3>
-        <div class="row">
-          <input id="cityInput" type="text" placeholder="Enter city (e.g., Manila)" />
-          <button id="fetchWeather">Get Weather</button>
+      <div class="card weather-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-cloud-sun"></i> Search City & Weather</h3>
         </div>
-        <div id="weatherResult" class="weather-result"></div>
+        <div class="card-body">
+          <div class="search-box">
+            <div class="input-group">
+              <i class="fa-solid fa-location-dot"></i>
+              <input id="cityInput" type="text" placeholder="Enter city (e.g., Manila)" />
+            </div>
+            <button id="fetchWeather" class="action-btn">Get Weather</button>
+          </div>
+          <div id="weatherResult" class="weather-result"></div>
+        </div>
       </div>
 
-      <div class="card">
-        <h3>Manage Sensors (Add / Update)</h3>
-        <form id="dataForm">
-          <input id="sensorName" type="text" placeholder="Sensor Name (e.g., Air Quality Sensor)" required />
-          <input id="sensorDesc" type="text" placeholder="Description (optional)" />
-          <input id="sensorCity" type="text" placeholder="City (e.g., Manila)" required />
-          <div class="row">
-            <input id="sensorValue" type="number" step="any" placeholder="Value (leave blank for auto)" />
-            <label class="inline">
-              <input id="autoValue" type="checkbox" /> Auto-generate value
-            </label>
-          </div>
-          <button type="submit">Add / Update Sensor</button>
-        </form>
+      <div class="card sensor-form-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-sliders"></i> Manage Sensors</h3>
+        </div>
+        <div class="card-body">
+          <form id="dataForm">
+            <div class="input-group">
+              <i class="fa-solid fa-tag"></i>
+              <input id="sensorName" type="text" placeholder="Sensor Name (e.g., Air Quality)" required />
+            </div>
+            <div class="input-group">
+              <i class="fa-solid fa-align-left"></i>
+              <input id="sensorDesc" type="text" placeholder="Description (optional)" />
+            </div>
+            <div class="input-group">
+              <i class="fa-solid fa-map-pin"></i>
+              <input id="sensorCity" type="text" placeholder="City (e.g., Manila)" required />
+            </div>
+            <div class="row form-row">
+              <div class="input-group flex-grow">
+                <i class="fa-solid fa-gauge-high"></i>
+                <input id="sensorValue" type="number" step="any" placeholder="Value" />
+              </div>
+              <label class="checkbox-container">
+                <input id="autoValue" type="checkbox" />
+                <span class="checkmark"></span>
+                Auto-generate
+              </label>
+            </div>
+            <button type="submit" class="submit-btn"><i class="fa-solid fa-plus"></i> Add / Update Sensor</button>
+          </form>
 
-        <h4>All Saved Sensors</h4>
-        <ul id="dataList"></ul>
+          <div class="saved-sensors-section">
+            <h4><i class="fa-solid fa-list-check"></i> All Saved Sensors</h4>
+            <ul id="dataList" class="sensor-list"></ul>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Right column: chart + map -->
     <section class="right-col">
-      <div class="card">
-        <h3>City Sensor Chart</h3>
-        <div style="height:300px;">
-          <canvas id="envChart"></canvas>
+      <div class="card chart-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-chart-line"></i> City Sensor Chart</h3>
+        </div>
+        <div class="card-body">
+          <div class="chart-container" style="height:300px;">
+            <canvas id="envChart"></canvas>
+          </div>
         </div>
       </div>
 
-      <div class="card">
-        <h3>Map</h3>
-        <div id="map" style="height:360px;"></div>
+      <div class="card map-card">
+        <div class="card-header">
+          <h3><i class="fa-solid fa-map"></i> Live Map</h3>
+        </div>
+        <div class="card-body">
+          <div id="map" style="height:360px;"></div>
+        </div>
       </div>
     </section>
   </main>
